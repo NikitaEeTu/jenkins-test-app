@@ -2,8 +2,7 @@ pipeline {
     agent any
 
     environment {
-        DOCKER_CREDENTIALS_ID = 'docker-hub-credentials'
-        IMAGE_NAME = "docnikita/test-jenkins-app"
+        IMAGE_NAME = "local-express-app"
         DOCKER_TAG = "${env.BUILD_ID}"
         TEST_CONTAINER_NAME = "express-app-test-container"
     }
@@ -11,7 +10,7 @@ pipeline {
     stages {
         stage('Checkout Code') {
             steps {
-                git branch: 'main', url: 'https://github.com/NikitaEeTu/jenkins-test-app.git'
+                git branch: 'main', url: 'https://github.com/yourusername/yourrepo.git'
             }
         }
 
@@ -35,11 +34,11 @@ pipeline {
             }
         }
 
-        stage('Deploy Application') {
+        stage('Deploy Application Locally') {
             steps {
                 script {
                     sh """
-                        docker run -d -p 3000:3000 ${IMAGE_NAME}:${DOCKER_TAG}
+                        docker run -d -p 3000:3000 --name express-app ${IMAGE_NAME}:${DOCKER_TAG}
                     """
                 }
             }
