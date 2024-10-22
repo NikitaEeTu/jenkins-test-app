@@ -10,4 +10,4 @@ app.get('/greet/:name', (req, res) => {
     res.status(200).send(`Hello, ${name}!`);
 });
 
-app.listen(3000, () => console.log("App is working"))
+module.exports = app; 
